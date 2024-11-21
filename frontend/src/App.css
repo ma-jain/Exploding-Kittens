@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #282c34;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.App {
+  text-align: center;
+}
+
+button {
+  background-color: #61dafb;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #282c34;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #21a1f1;
+}
+
+.card {
+  font-size: 50px;
+  margin: 20px;
+}
+
+.leaderboard {
+  margin: 20px auto;
+  width: 60%;
+  background-color: #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.leaderboard h2 {
+  color: #61dafb;
+}
+
+.leaderboard table {
+  width: 100%;
+  color: white;
+  border-collapse: collapse;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
