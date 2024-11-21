@@ -1,41 +1,42 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+// import './Game.css';
 
-const Game = () => {
-  const [card, setCard] = useState(null);
+const Game = ({ username }) => {
+  const [score, setScore] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [message, setMessage] = useState(null);
 
-  const drawCard = async () => {
+  const endGame = async () => {
+    setIsGameOver(true);
     try {
-      const response = await axios.get("http://localhost:8081/api/get-card");
-      setCard(response.data.card);
+      const response = await fetch(`http://localhost:8081/api/update-score?username=${username}`, {
+        method: 'POST',
+      });
 
-      if (response.data.card === "💣 Exploding Kitten Card") {
-        alert("You lost the game!");
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Failed to update score');
       }
-      if (response.data.card === "🔀 Shuffle Card") {
-        alert("Deck shuffled!");
-      }
-    } catch (error) {
-      console.error("Error drawing a card", error);
-    }
-  };
 
-  const winGame = async () => {
-    const username = localStorage.getItem("username");
-    try {
-      await axios.post(`http://localhost:8081/api/update-score?username=${username}`);
-      alert("You won! Your score has been updated.");
-    } catch (error) {
-      console.error("Error updating score", error);
+      const data = await response.json();
+      setMessage(data.message); // Display success message
+    } catch (err) {
+      setMessage(err.message);
+      console.error('Error submitting score:', err);
     }
   };
 
   return (
-    <div>
-      <h2>Game in Progress</h2>
-      <button onClick={drawCard}>Draw a Card</button>
-      {card && <div className="card">{card}</div>}
-      <button onClick={winGame}>End Game</button>
+    <div className="game-container">
+      <h1>Game</h1>
+      <p>Score: {score}</p>
+      {message && <p style={{ color: 'green' }}>{message}</p>}
+      {!isGameOver ? (
+        <button onClick={() => setScore(score + 10)}>Increase Score</button>
+      ) : (
+        <button disabled>Game Over</button>
+      )}
+      <button onClick={endGame}>End Game</button>
     </div>
   );
 };

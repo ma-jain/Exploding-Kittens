@@ -1,0 +1,52 @@
+.game-board {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #d21818;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .game-status {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .card-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .game-controls button {
+    background-color: #157aa9;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .game-controls button:hover {
+    background-color: #45a049;
+  }
+  
+  .game-controls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

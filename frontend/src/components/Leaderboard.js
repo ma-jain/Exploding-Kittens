@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { getLeaderboard } from '../utils/api';
+import '../styles/Leaderboard.css';
 
 const Leaderboard = () => {
-  const [players, setPlayers] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/api/leaderboard");
-        setPlayers(response.data);
+        const data = await getLeaderboard();
+        setLeaderboard(data);
       } catch (error) {
-        console.error("Error fetching leaderboard", error);
+        console.error('Error fetching leaderboard:', error);
       }
     };
 
@@ -19,19 +20,21 @@ const Leaderboard = () => {
 
   return (
     <div className="leaderboard">
-      <h2>Leaderboard</h2>
+      <h2>Top Players</h2>
       <table>
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Username</th>
             <th>Score</th>
           </tr>
         </thead>
         <tbody>
-          {players.map((player, index) => (
-            <tr key={index}>
-              <td>{player.username}</td>
-              <td>{player.score}</td>
+          {leaderboard.map((entry, index) => (
+            <tr key={entry.username}>
+              <td>{index + 1}</td>
+              <td>{entry.username}</td>
+              <td>{entry.score}</td>
             </tr>
           ))}
         </tbody>

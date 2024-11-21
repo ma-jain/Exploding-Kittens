@@ -1,23 +1,27 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import StartGame from "./components/StartGame";
-import Game from "./components/Game";
-import Leaderboard from "./components/Leaderboard";
-import Header from "./components/Header";
-import "./App.css";
+import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import GameBoard from './components/GameBoard';
+import UsernameModal from './components/UsernameModal';
+import './styles/App.css';
 
 function App() {
+  const [username, setUsername] = useState(null);
+
+  const handleUsernameSet = (name) => {
+    setUsername(name);
+  };
+
   return (
-    <Router>
+    <Provider store={store}>
       <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<StartGame />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-        </Routes>
+        {!username ? (
+          <UsernameModal onUsernameSet={handleUsernameSet} />
+        ) : (
+          <GameBoard username={username} />
+        )}
       </div>
-    </Router>
+    </Provider>
   );
 }
 

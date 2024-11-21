@@ -22,12 +22,27 @@ var rdb = redis.NewClient(&redis.Options{
 	DB:       0,
 })
 
-// Card Types
+// Card Types and Probabilities
 var cards = []string{"😼 Cat Card", "🙅‍♂️ Defuse Card", "🔀 Shuffle Card", "💣 Exploding Kitten Card"}
+var probabilities = []float64{0.35, 0.25, 0.2, 0.2} // Probability distribution for cards
 
-// API to generate a random card
+// Function to pick a weighted random card
+func weightedRandomCard() string {
+	r := rand.Float64()
+	cumulative := 0.0
+
+	for i, p := range probabilities {
+		cumulative += p
+		if r < cumulative {
+			return cards[i]
+		}
+	}
+	return cards[len(cards)-1] // Fallback to the last card
+}
+
+// API to generate a random card with weighted probabilities
 func GetCardAPI(w http.ResponseWriter, r *http.Request) {
-	card := cards[rand.Intn(len(cards))]
+	card := weightedRandomCard()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"card": card})
 }

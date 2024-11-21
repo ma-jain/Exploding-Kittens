@@ -1,0 +1,33 @@
+.leaderboard {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.284);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .leaderboard h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #c3e311;
+  }
+  
+  .leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .leaderboard th, .leaderboard td {
+    border-bottom: 1px solid #190303;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .leaderboard th {
+    background-color: #f80505;
+    font-weight: bold;
+  }
+  
+  .leaderboard tr:nth-child(even) {
+    background-color: #333030;
+  }
